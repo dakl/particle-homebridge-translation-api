@@ -43,6 +43,10 @@ class Relay(Accessory):
         self.headers = headers or {
             "Content-type": "application/x-www-form-urlencoded"
         }
+        if not self.device_id:
+            raise ValueError('Need to set RELAY_HUB_DEVICE_ID in the environment')
+        if not self.access_token:
+            raise ValueError('Need to set PARTICLE_ACCESS_TOKEN in the environment')
 
     def _get_url(self, path):
         return f"{config.PARTICLE_BASE_URL}/{self.device_id}/{path}"

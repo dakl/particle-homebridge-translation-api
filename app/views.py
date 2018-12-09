@@ -1,11 +1,10 @@
 import logging
 
-from requests import post
-
-from app.config import Config as config
-from app.setup import app
 from flask import abort, jsonify
+
 from app.accessories import ACCESSORIES
+from app.setup import app
+
 logger = logging.getLogger(__name__)
 
 HEADERS = {"Content-type": "application/x-www-form-urlencoded"}
