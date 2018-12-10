@@ -1,0 +1,27 @@
+{
+    "bridge": {
+        "name": "Klevans test hacks",
+        "username": "danielk",
+        "port": 51827,
+        "pin": "123-45-678"
+    },
+    "description": "My homebridge config",
+    "accessories": [
+        {
+            "accessory": "HTTP-SWITCH",
+            "name": "Relay 1",
+            "on": {
+                "url": "particle-homebridge-translation-api:8000/relay/1/on",
+                "method": "POST"
+            }, 
+            "off": {
+                "url": "particle-homebridge-translation-api:8000/relay/1/off",
+                "method": "POST"
+            },
+            "status": {
+                "url": "particle-homebridge-translation-api:8000/relay/1",
+                "method": "GET"
+            }
+        }
+    ]
+}
