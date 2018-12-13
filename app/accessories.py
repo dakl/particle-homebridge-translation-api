@@ -1,8 +1,8 @@
-from typing import List
+from typing import Dict
 
 from app.accessory import Relay, Accessory
 
-ACCESSORIES: List[Accessory] = {
+ACCESSORIES: Dict[int, Accessory] = {
     1:
     Relay(
         name='relay-hub-1',
