@@ -1,6 +1,6 @@
 import logging
 
-from flask import abort, jsonify
+from flask import abort, jsonify, request
 
 from app.accessories import ACCESSORIES
 from app.setup import app
@@ -16,38 +16,36 @@ def health():
     return jsonify({'status': 'up', 'message': 'Service is healthy.'})
 
 
-@app.route('/relays', methods=['GET'])
-def list_relays():
-    relays = [{
-        'id': relay_id,
-        'name': relay.name
-    } for relay_id, relay in ACCESSORIES.items()]
-    return jsonify({'relays': relays})
+@app.route('/api/v1/accessories', methods=['GET'])
+def list_accessories():
+    accessories = [{
+        'id': accessory_id,
+        'name': accessory.name
+    } for accessory_id, accessory in ACCESSORIES.items()]
+    return jsonify({'accessories': accessories})
 
 
-@app.route('/relay/<int:relay_id>', methods=['GET'])
-def relay(relay_id):
-    if relay_id not in ACCESSORIES:
+@app.route('/api/v1/accessories/<int:accessory_id>/status', methods=['GET'])
+def get_state(accessory_id):
+    if accessory_id not in ACCESSORIES:
         abort(404)
 
-    relay = ACCESSORIES.get(relay_id)
-    response = relay.get_status()
-    response['id'] = relay_id
-    return jsonify({'id': relay_id, 'status': response.get('status')})
+    accessory = ACCESSORIES.get(accessory_id)
+    response = accessory.get_status()
+    return str(response.get('status'))
 
 
-@app.route('/relay/<int:relay_id>/<action>', methods=['POST'])
-def set_relay(relay_id, action):
-    if relay_id not in ACCESSORIES:
+@app.route('/api/v1/accessories/<int:accessory_id>/status', methods=['POST'])
+def set_state(accessory_id):
+    if accessory_id not in ACCESSORIES:
         abort(404)
-    if action not in ALLOWED_ACTIONS.keys():
+    state = int(request.json.get('value'))
+    accessory = ACCESSORIES.get(accessory_id)
+    success = accessory.set_state(state)
+    if success:
+        return jsonify({
+            'id': accessory_id,
+            'new_state': state
+        })
+    else:
         abort(400)
-
-    relay = ACCESSORIES.get(relay_id)
-    response = relay.set_state(action)
-
-    return jsonify({
-        'id': relay_id,
-        'action': action,
-        'status': response.get('status')
-    })
