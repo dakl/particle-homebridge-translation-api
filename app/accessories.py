@@ -1,6 +1,7 @@
 from typing import Dict
 
-from app.accessory import Relay, Accessory
+from app.accessory.base import Accessory
+from app.accessory.relay import Relay
 
 ACCESSORIES: Dict[int, Accessory] = {
     1:

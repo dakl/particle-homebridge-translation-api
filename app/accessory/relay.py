@@ -1,47 +1,7 @@
 from requests import post
 
 from app.config import Config as config
-
-
-class Accessory:
-    name: str
-
-    def __init__(self, name):
-        self.name = name
-
-    def set_state(self, state: int) -> bool:
-        raise NotImplementedError()
-
-    def get_state(self) -> int:
-        raise NotImplementedError()
-
-
-class RGBLight(Accessory):
-    def set_brightness(self, brightness: float) -> None:
-        pass
-
-    def get_brightness(self) -> float:
-        pass
-
-    def set_hue(self, hue: float) -> None:
-        pass
-
-    def get_hue(self) -> float:
-        pass
-
-    def set_saturation(self, float) -> None:
-        pass
-
-    def get_saturation(self) -> float:
-        pass
-
-
-class MockAccessory(Accessory):
-    def set_state(self):
-        return True
-
-    def get_status(self):
-        return 0
+from .base import Accessory
 
 
 class Relay(Accessory):
@@ -86,7 +46,7 @@ class Relay(Accessory):
         }
         return post(url, data=payload, headers=self.headers).json()
 
-    def set_state(self, state):
+    def set_state(self, state: int) -> bool:
         state_string = self.STATE_MAP.get(state, None)
         if state_string:
             response = self._set_state(state_string)
@@ -97,7 +57,7 @@ class Relay(Accessory):
         else:
             return False
 
-    def get_state(self):
+    def get_state(self) -> int:
         url = self._get_url('state')
         payload = {
             'access_token': self.access_token,
@@ -105,4 +65,4 @@ class Relay(Accessory):
         }
         resp = post(url, data=payload, headers=self.headers).json()
 
-        return {'status': resp.get('return_value')}
+        return int(resp.get('return_value'))

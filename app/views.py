@@ -13,6 +13,7 @@ ALLOWED_ACTIONS = {'on': 'HIGH', 'off': 'LOW'}
 
 @app.route('/')
 def health():
+
     return jsonify({'status': 'up', 'message': 'Service is healthy.'})
 
 
@@ -31,8 +32,7 @@ def get_state(accessory_id):
         abort(404)
 
     accessory = ACCESSORIES.get(accessory_id)
-    response = accessory.get_status()
-    return str(response.get('status'))
+    return str(accessory.get_state())
 
 
 @app.route('/api/v1/accessories/<int:accessory_id>/status', methods=['POST'])
@@ -43,9 +43,6 @@ def set_state(accessory_id):
     accessory = ACCESSORIES.get(accessory_id)
     success = accessory.set_state(state)
     if success:
-        return jsonify({
-            'id': accessory_id,
-            'new_state': state
-        })
+        return jsonify({'id': accessory_id, 'new_state': state})
     else:
         abort(400)
