@@ -1,15 +1,28 @@
-version: '3'
+version: '3.1'
 
 services:
   particle-homebridge-translation-api:
     image: dakl/particle-homebridge-translation-api
     ports:
       - "8000:8000"
-    env_file:
-      - ../klevan-secrets/.config/private/env
+    secrets:
+       - tv_backlight_device_id
+       - lego_house_device_id
+       - relay_hub_device_id
+       - particle_access_token
   homebridge:
     image: oznu/homebridge:raspberry-pi
     volumes:
       - ./homebridge:/homebridge
     depends_on: 
       - particle-homebridge-translation-api
+
+secrets:
+  tv_backlight_device_id:
+    external: true
+  lego_house_device_id:
+    external: true
+  relay_hub_device_id:
+    external: true
+  particle_access_token:
+    external: true
