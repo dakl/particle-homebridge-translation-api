@@ -9,3 +9,9 @@ lint:
 	mypy --ignore-missing-imports app/
 
 test: unit-test lint
+
+build:
+	docker build -t dakl/particle-homebridge-translation-api:latest .
+
+push:
+	docker push dakl/particle-homebridge-translation-api:latest
