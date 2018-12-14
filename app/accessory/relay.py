@@ -1,6 +1,6 @@
 from requests import post
 
-from app.config import Config as config
+from app import config
 from .base import Accessory
 
 
