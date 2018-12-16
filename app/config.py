@@ -12,9 +12,10 @@ class Config:
         self.PARTICLE_ACCESS_TOKEN = self.get_secret('PARTICLE_ACCESS_TOKEN')
 
     def get_secret(self, secret_name):
-        if os.path.exists(f'/run/secrets/{secret_name}'):
+        secret_file = f'/run/secrets/{secret_name.lower()}'
+        if os.path.exists(secret_file):
             logger.info(f"Reading {secret_name} from docker secrets")
-            with open(f'/run/secrets/{secret_name}', 'r') as f:
+            with open(secret_file, 'r') as f:
                 return f.readline().strip()
         else:
             logger.info(f"Reading {secret_name} from environment")
