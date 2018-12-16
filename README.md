@@ -11,8 +11,8 @@ python run.py
 ## Build & push
 
 ~~~bash
-docker build -t dakl/particle-homebridge-translation-api .
-docker push dakl/particle-homebridge-translation-api
+docker build -t dakl/particle-relay-hub-api .
+docker push dakl/particle-relay-hub-api
 ~~~
 
 ## Run Container
@@ -23,7 +23,7 @@ docker run \
 -e LEGO_HOUSE_DEVICE_ID=(echo $LEGO_HOUSE_DEVICE_ID) \
 -e PARTICLE_ACCESS_TOKEN=(echo $PARTICLE_ACCESS_TOKEN) \
 -p 8000:8000 \
-dakl/particle-homebridge-translation-api
+dakl/particle-relay-hub-api
 ~~~
 
 ## Run in swarm
@@ -31,12 +31,12 @@ dakl/particle-homebridge-translation-api
 ~~~bash
 docker service create \
 --replicas 1 \
---name particle-homebridge-translation-api \
+--name particle-relay-hub-api \
 -e RELAY_HUB_DEVICE_ID=(echo $RELAY_HUB_DEVICE_ID) \
 -e LEGO_HOUSE_DEVICE_ID=(echo $LEGO_HOUSE_DEVICE_ID) \
 -e PARTICLE_ACCESS_TOKEN=(echo $PARTICLE_ACCESS_TOKEN) \
 -p 8000:8000 \
-dakl/particle-homebridge-translation-api
+dakl/particle-relay-hub-api
 ~~~
 
 # CI
