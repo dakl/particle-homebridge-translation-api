@@ -11,7 +11,7 @@ lint:
 test: unit-test lint
 
 build:
-	docker build -t dakl/particle-homebridge-translation-api:latest .
+	docker build -t dakl/particle-relay-hub-api .
 
 push:
-	docker push dakl/particle-homebridge-translation-api:latest
+	docker push dakl/particle-relay-hub-api
