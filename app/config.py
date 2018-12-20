@@ -9,6 +9,7 @@ class Config:
 
     def __init__(self):
         self.RELAY_HUB_DEVICE_ID = self.get_secret('RELAY_HUB_DEVICE_ID')
+        self.LEGO_HOUSE_DEVICE_ID = self.get_secret('LEGO_HOUSE_DEVICE_ID')
         self.PARTICLE_ACCESS_TOKEN = self.get_secret('PARTICLE_ACCESS_TOKEN')
 
     def get_secret(self, secret_name):

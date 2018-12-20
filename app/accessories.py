@@ -2,6 +2,7 @@ from typing import Dict
 
 from app.accessory.base import Accessory
 from app.accessory.relay import Relay
+from app.accessory.lego_house_light import LegoHouseLight
 
 ACCESSORIES: Dict[int, Accessory] = {
     1:
@@ -20,36 +21,20 @@ ACCESSORIES: Dict[int, Accessory] = {
     Relay(
         name='relay-hub-4',
         internal_id='r4'),
-    # 5:
-    # Relay(
-    #     name='lego-house-1',
-    #     device_id=os.getenv('LEGO_HOUSE_DEVICE_ID'),
-    #     access_token=os.getenv('PARTICLE_ACCESS_TOKEN'),
-    #     internal_id='0',
-    #     args_template='{pin},{state}',
-    #     path='pin'),
-    # 6:
-    # Relay(
-    #     name='lego-house-2',
-    #     device_id=os.getenv('LEGO_HOUSE_DEVICE_ID'),
-    #     access_token=os.getenv('PARTICLE_ACCESS_TOKEN'),
-    #     internal_id='1',
-    #     args_template='{pin},{state}',
-    #     path='pin'),
-    # 7:
-    # Relay(
-    #     name='lego-house-3',
-    #     device_id=os.getenv('LEGO_HOUSE_DEVICE_ID'),
-    #     access_token=os.getenv('PARTICLE_ACCESS_TOKEN'),
-    #     internal_id='2',
-    #     args_template='{pin},{state}',
-    #     path='pin'),
-    # 8:
-    # Relay(
-    #     name='lego-house-4',
-    #     device_id=os.getenv('LEGO_HOUSE_DEVICE_ID'),
-    #     access_token=os.getenv('PARTICLE_ACCESS_TOKEN'),
-    #     internal_id='3',
-    #     args_template='{pin},{state}',
-    #     path='pin'),
+    5:
+    LegoHouseLight(
+        name='lego-house-0',
+        internal_id=0),
+    6:
+    LegoHouseLight(
+        name='lego-house-1',
+        internal_id=1),
+    7:
+    LegoHouseLight(
+        name='lego-house-2',
+        internal_id=2),
+    8:
+    LegoHouseLight(
+        name='lego-house-3',
+        internal_id=3),
 }
