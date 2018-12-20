@@ -39,6 +39,8 @@ def get_state(accessory_id):
 def set_state(accessory_id):
     if accessory_id not in ACCESSORIES:
         abort(404)
+    if not request.json:
+        abort(400)
     state = int(request.json.get('value'))
     accessory = ACCESSORIES.get(accessory_id)
     success = accessory.set_state(state)
